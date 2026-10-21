@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* NetBhav design tokens — light-first, warm ivory with forest/emerald/amber. */
+@theme {
+  --font-sans: "Manrope Variable", "Noto Sans Devanagari Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", "Noto Sans Devanagari Variable", ui-serif, Georgia, serif;
+
+  --color-ivory: #f6f2e8;
+  --color-paper: #fffcf5;
+  --color-sand: #ede6d4;
+  --color-line: #e2d9c4;
+  --color-line-strong: #cfc4aa;
+  --color-ink: #17251e;
+  --color-ink-soft: #33443b;
+  --color-muted: #5f6c63;
+  --color-faint: #8a958c;
+
+  --color-forest-950: #08201a;
+  --color-forest-900: #0d2d22;
+  --color-forest-800: #133d2e;
+  --color-forest-700: #1b513d;
+  --color-forest-600: #24664d;
+
+  --color-emerald-700: #0b6e46;
+  --color-emerald-600: #0e8655;
+  --color-emerald-500: #16a066;
+  --color-emerald-300: #6fd3a2;
+  --color-emerald-100: #daf1e4;
+  --color-emerald-50: #edf8f1;
+
+  --color-sage-400: #8ea891;
+  --color-sage-300: #b2c6b2;
+  --color-sage-200: #d3e0d1;
+  --color-sage-100: #e7eee3;
+
+  --color-amber-700: #96600a;
+  --color-amber-600: #c27c0e;
+  --color-amber-500: #e09a1f;
+  --color-amber-300: #f3c76c;
+  --color-amber-100: #fbecc9;
+  --color-amber-50: #fdf6e4;
+
+  --color-rust-700: #8f3720;
+  --color-rust-600: #b2472a;
+  --color-rust-100: #f6e0d6;
+  --color-rust-50: #fbf0ea;
+
+  --color-sky-700: #285f7d;
+  --color-sky-100: #dcebf2;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 0 rgb(23 37 30 / 0.04), 0 8px 24px -12px rgb(23 37 30 / 0.12);
+  --shadow-lift: 0 2px 0 rgb(23 37 30 / 0.04), 0 18px 40px -18px rgb(13 45 34 / 0.35);
+
+  --animate-rise: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 300ms ease-out both;
+  --animate-grow: grow 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 0;
+    text-rendering: optimizeLegibility;
+  }
+  :lang(hi) body, :lang(mr) body {
+    line-height: 1.6;
+  }
+  ::selection {
+    background: var(--color-amber-300);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-amber-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input[type="number"]::-webkit-inner-spin-button { opacity: 0.4; }
+}
+
+@layer components {
+  .tabular { font-variant-numeric: tabular-nums; }
+  .font-display { font-family: var(--font-display); font-optical-sizing: auto; }
+  .card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .panel-dark {
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgb(36 102 77 / 0.55) 0%, transparent 55%),
+      var(--color-forest-900);
+    color: #f2efe4;
+    border-radius: var(--radius-card);
+  }
+  .grain {
+    background-image: radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .input {
+    width: 100%;
+    min-height: 3rem;
+    border-radius: 0.875rem;
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    padding: 0.625rem 0.875rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+    transition: border-color 150ms, box-shadow 150ms;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-emerald-600);
+    box-shadow: 0 0 0 4px rgb(14 134 85 / 0.14);
+  }
+  .input[aria-invalid="true"] {
+    border-color: var(--color-rust-600);
+    box-shadow: 0 0 0 4px rgb(178 71 42 / 0.1);
+  }
+  .label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-ink-soft);
+    margin-bottom: 0.375rem;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-sand) 0%, #f5efdf 50%, var(--color-sand) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+    border-radius: 0.75rem;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
